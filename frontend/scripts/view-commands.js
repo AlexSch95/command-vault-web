@@ -1,4 +1,4 @@
-import { showFeedback, loadGlobalTheme, getAppVersion } from "./shared/shared.js";
+import { showFeedback, loadGlobalTheme } from "./shared/shared.js";
 
 document.addEventListener('DOMContentLoaded', async () => {
 
@@ -6,47 +6,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     await window.i18n.ready;
   }
 
-  await getAppVersion();
-
-  document.getElementById("settingsButton").addEventListener("click", () => {
-    document.getElementById("mainContentOverlay").classList.add("overlay-darken");
-    window.electronAPI.openSettingsWindow();
-  });
-
-  window.electronAPI.onSettingsClosed(() => {
-    document.getElementById("mainContentOverlay").classList.remove("overlay-darken");
-    loadGlobalTheme();
-    loadCommands();
-    technologyFilter();
-  });
-
-  const languageSwitchers = document.querySelectorAll('.language-switcher');
-  languageSwitchers.forEach(switcher => {
-    switcher.addEventListener('click', async (event) => {
-      event.preventDefault();
-      const selectedLang = switcher.getAttribute('data-language');
-      await window.switchLanguage(selectedLang);
-      window.i18n.updatePage();
-      loadCommands();
-    });
-  });
-
-  document.getElementById("minimize-btn").addEventListener("click", () => {
-    window.electronAPI.minimizeWindow();
-  });
-  document.getElementById("close-btn").addEventListener("click", () => {
-    window.electronAPI.closeWindow();
-  });
-
-
-
-
-
   let commandsArray = [];
   const commandsContainer = document.getElementById('commandsContainer');
 
   loadGlobalTheme();
-  loadCommands();
   technologyFilter();
 
   document.getElementById('technologyFilter').addEventListener('change', applyFilter);

@@ -55,3 +55,45 @@ export async function loadGlobalTheme() {
     console.error('Fehler beim Laden des globalen Themes:', error);
   }
 }
+
+export async function openSettingsWindow() {
+  let settingsModal = document.getElementById('settingsModal');
+  if (!settingsModal) {
+    const modalHtml = `
+      <div class="modal modal-card fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+        <div class="modal-dialog settings-modal-dialog">
+          <div class="modal-content settings-modal-content">
+              <div class="modal-body settings-modal-body">
+                      <div class="custom-titlebar">
+        <div class="titlebar-left">
+          <div class="titlebar-title text-primary" data-i18n="nav.settings">
+            Einstellungen
+          </div>
+        </div>
+        <div class="titlebar-controls">
+          <button class="titlebar-btn saveandclose rounded-2" id="btn-close" data-bs-dismiss="modal" title="Close">
+            <i class="bi bi-check text-primary"></i>
+          </button>
+        </div>
+      </div>
+              <iframe id="settingsContent" src="settings.html" class="settings-iframe"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+      `
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+    settingsModal = document.getElementById('settingsModal');
+  }
+
+  const modal = new bootstrap.Modal(settingsModal, {
+    backdrop: 'static',
+    keyboard: false
+  });
+
+  modal.show();
+  settingsModal.addEventListener('hidden.bs.modal', () => {
+    settingsModal.remove();
+    loadGlobalTheme();
+  });
+}
