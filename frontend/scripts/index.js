@@ -2,7 +2,12 @@ import { loadGlobalTheme, openSettingsWindow } from "./shared/shared.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
 
-  loadGlobalTheme();
+  init();
+
+  function init() {
+    loadGlobalTheme();
+  }
+
 
   if (window.i18n) {
     await window.i18n.ready;
@@ -11,6 +16,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("settingsButton").addEventListener("click", (e) => {
     e.preventDefault();
     openSettingsWindow();
+  });
+
+  document.addEventListener('settingsModalClosed', () => {
+    init();
   });
 
   const modal = new bootstrap.Modal(document.getElementById('gettingStartedModal'), {

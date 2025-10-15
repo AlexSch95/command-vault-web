@@ -75,7 +75,7 @@ export async function loadBackgroundImages() {
       col.className = 'col-lg-3 col-md-4 col-sm-6 col-12';
       col.innerHTML = `
                   <div class="bg-image-container">
-                    <img src="/frontend/assets/default-backgrounds/${file}" alt="${file}" class="img-fluid bg-image-preview mb-2" data-image="${file}">
+                    <img src="../../assets/default-backgrounds/${file}" alt="${file}" class="img-fluid bg-image-preview mb-2" data-image="${file}">
                   </div>
               `;
       bgListContainer.appendChild(col);

@@ -45,7 +45,7 @@ export async function loadGlobalTheme() {
         document.body.style.backgroundColor = savedTheme.bgPrimary;
         document.body.style.backgroundImage = 'none';
       } else {
-        document.body.style.backgroundImage = `url('/frontend/assets/default-backgrounds/${savedTheme.backgroundImage}')`;
+        document.body.style.backgroundImage = `url('../../assets/default-backgrounds/${savedTheme.backgroundImage}')`;
         document.body.style.backgroundSize = 'cover';
         document.body.style.backgroundPosition = 'center';
       }
@@ -94,6 +94,7 @@ export async function openSettingsWindow() {
   modal.show();
   settingsModal.addEventListener('hidden.bs.modal', () => {
     settingsModal.remove();
-    loadGlobalTheme();
+    const settingsClosedEvent = new CustomEvent('settingsModalClosed');
+    document.dispatchEvent(settingsClosedEvent);
   });
 }
