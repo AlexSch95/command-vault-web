@@ -18,13 +18,42 @@ app.use(cors());
 
 const JWTSECRET = process.env.JWT_SECRET;
 
+function authTokenMiddleware(req, res, next) {
+    const token = req.cookies.token;
+    if (!token) {
+        return res.status(401).json({ success: false, message: "NO_TOKEN_PROVIDED" });  
+    }
+    try {
+        const decoded = jwt.verify(token, JWTSECRET);
+        req.userName = decoded.userName;
+        req.userId = decoded.userId;
+        next();
+
+    } catch (error) {
+        console.error('Token Überprüfungsfehler:', error);
+        if (error.name === 'TokenExpiredError' || error.name === 'JsonWebTokenError') {
+            res.clearCookie('token');
+            return res.status(403).json({ success: false, message: "INVALID_TOKEN" });
+        }
+    }
+}
+
+app.get("/api/auth/verify", authTokenMiddleware, async (req, res) => {
+    try {
+        res.status(200).json({ success: true, message: "TOKEN_VALID"});
+    } catch (error) {
+        console.error('Fehler in Route /api/auth/verify:', error);
+        res.status(400).json({ success: false, message: "INTERNAL_SERVER_ERROR" });
+    }
+});
+
 app.post("/api/auth/login", async (req, res) => {
     try {
         const { username, password, rememberMe } = req.body;
         if (username === undefined || password === undefined) {
             return res.status(400).json({
                 success: false,
-                message: "USERNAME_OR_PASSWORD_UNDEFINED"
+                message: "UNDEFINED_REQUEST"
             });
         }
 
@@ -49,7 +78,11 @@ app.post("/api/auth/login", async (req, res) => {
 
         const tokenExpiry = rememberMe ? '14d' : '1h';
         const cookieMaxAge = rememberMe ? 14 * 24 * 60 * 60 * 1000 : 3600000;
-        const token = jwt.sign({ userId: existingUser[0].user_id }, JWTSECRET, { expiresIn: tokenExpiry });
+        const token = jwt.sign({ 
+            userId: existingUser[0].user_id, 
+            userName: existingUser[0].username 
+        }, JWTSECRET, { expiresIn: tokenExpiry });
+
         res
             .status(200)
             .cookie('token', token, { httpOnly: true, maxAge: cookieMaxAge })
@@ -72,7 +105,7 @@ app.post("/api/auth/register", async (req, res) => {
         if (username === undefined || password === undefined || email === undefined) {
             return res.status(400).json({
                 success: false,
-                message: "USERNAME_OR_PASSWORD_OR_EMAIL_UNDEFINED"
+                message: "UNDEFINED_REQUEST"
             });
         }
         const db = await connectToDatabase();
@@ -109,22 +142,22 @@ app.post("/api/auth/register", async (req, res) => {
     }
 });
 
-app.get("/api/categories/all", async (req, res) => {
+app.get("/api/categories/all", authTokenMiddleware, async (req, res) => {
     try {
         const db = await connectToDatabase();
-        const [categories] = await db.execute('SELECT * FROM categories ORDER BY category_name ASC');
-        res.status(200).json(categories);
+        const [categories] = await db.execute('SELECT * FROM categories WHERE user_id = ? ORDER BY category_name ASC', [req.userId]);
+        res.status(200).json({success: true, message: "CATEGORIES_LOADED", data: categories});
     } catch (error) {
         console.error('Fehler beim Abrufen der Kategorien:', error);
-        res.status(500).json({ error: 'Fehler beim Abrufen der Kategorien' });
+        res.status(500).json({ success: false, message: "INTERNAL_SERVER_ERROR" });
     }
 });
 
-app.post("/api/categories/new", async (req, res) => {
+app.post("/api/categories/new", authTokenMiddleware, async (req, res) => {
     const { category_name, category_color } = req.body;
     try {
         const db = await connectToDatabase();
-        await db.execute('INSERT INTO categories (category_name, category_color, user_id) VALUES (?, ?, 1)', [category_name, category_color]);
+        await db.execute('INSERT INTO categories (category_name, category_color, user_id) VALUES (?, ?, ?)', [category_name, category_color, req.userId]);
         res
             .status(201)
             .json({

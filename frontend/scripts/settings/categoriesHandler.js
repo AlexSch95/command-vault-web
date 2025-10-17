@@ -14,7 +14,8 @@ export async function loadCategories() {
     try {
         newTechMode = false;
         const response = await fetch('/api/categories/all');
-        const categories = await response.json();
+        const result = await response.json();
+        const categories = result.data;
 
         const techContainer = document.getElementById('tech-container');
         techContainer.innerHTML = '';
@@ -25,7 +26,7 @@ export async function loadCategories() {
         const techSelect = document.createElement('select');
         techSelect.id = 'tech';
         techSelect.className = 'form-select form-select-lg bg-dark border-secondary text-light flex-grow-1';
-        if (categories.length === 0) {
+        if (!categories || categories.length === 0) {
             document.getElementById('delete-technology-btn').disabled = true;
             techSelect.innerHTML = `<option value="">${window.i18n.translate("pages.settings.categories.noCategories")}</option>`;
         } else {

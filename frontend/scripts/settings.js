@@ -1,4 +1,4 @@
-import { loadGlobalTheme } from "./shared/shared.js";
+import { loadGlobalTheme, checkAuth } from "./shared/shared.js";
 import * as themesHandler from "./settings/themesHandler.js";
 import * as categoriesHandler from "./settings/categoriesHandler.js";
 import * as restoreCommandsHandler from "./settings/restoreCommandsHandler.js";
@@ -9,14 +9,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     await window.i18n.ready;
   }
 
-  await loadGlobalTheme();
-  await themesHandler.init();
-  await categoriesHandler.init();
-  // await restoreCommandsHandler.init();
+  async function initPage() {
+    const authStatus = await checkAuth();
+    if (authStatus && authStatus.success) {
+      await loadGlobalTheme();
+      await themesHandler.init();
+      await categoriesHandler.init();
+      // await restoreCommandsHandler.init();
+    }
+  }
 
+  initPage();
 
   //desc: Themes Eventlistener
-  
   document.querySelectorAll('.theme-colorpicker').forEach(colorPicker => {
     colorPicker.addEventListener('change', () => {
       const hexDisplay = document.getElementById('hex-display');

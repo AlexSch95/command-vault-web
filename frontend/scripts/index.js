@@ -1,4 +1,4 @@
-import { loadGlobalTheme } from "./shared/shared.js";
+import { loadGlobalTheme, showFeedback } from "./shared/shared.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
 
@@ -38,36 +38,33 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   document.getElementById('authButton').addEventListener('click', () => {
     showAuthModal();
-    console.log("1");
   });
 
   //desc: zeigt ein modal mit login und registrierung tabs
   function showAuthModal() {
-    // Entferne existierendes Modal falls vorhanden
     const existingModal = document.getElementById('authModal');
     if (existingModal) {
       existingModal.remove();
     }
 
-    // Erstelle Modal HTML
     const modalHTML = `
     <div id="authModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="authModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="authModalLabel">Anmeldung</h5>
+            <h5 class="modal-title" id="authModalLabel">${window.i18n.translate("pages.index.auth.header")}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <ul class="nav nav-tabs" id="authTabs" role="tablist">
               <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab" aria-controls="login" aria-selected="true">
-                  Login
+                  ${window.i18n.translate("pages.index.auth.loginTab")}
                 </button>
               </li>
               <li class="nav-item" role="presentation">
                 <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register" type="button" role="tab" aria-controls="register" aria-selected="false">
-                  Registrierung
+                  ${window.i18n.translate("pages.index.auth.registerTab")}
                 </button>
               </li>
             </ul>
@@ -76,49 +73,48 @@ document.addEventListener("DOMContentLoaded", async () => {
               <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
                 <form id="loginForm">
                   <div class="mb-3">
-                    <label for="loginUsername" class="form-label">Benutzername</label>
+                    <label for="loginUsername" class="form-label">${window.i18n.translate("pages.index.auth.username")}</label>
                     <input type="text" class="form-control" id="loginUsername" required>
                   </div>
                   <div class="mb-3">
-                    <label for="loginPassword" class="form-label">Passwort</label>
+                    <label for="loginPassword" class="form-label">${window.i18n.translate("pages.index.auth.password")}</label>
                     <input type="password" class="form-control" id="loginPassword" required>
                   </div>
                   <div class="mb-3 form-check">
                     <input type="checkbox" class="form-check-input" id="rememberMe">
                     <label class="form-check-label" for="rememberMe">
-                      Angemeldet bleiben
+                      ${window.i18n.translate("pages.index.auth.rememberMe")}
                     </label>
                   </div>
-                  <button type="submit" class="btn btn-primary w-100">Anmelden</button>
+                  <button type="submit" class="btn btn-primary w-100">${window.i18n.translate("pages.index.auth.loginButton")}</button>
                 </form>
               </div>
               
-              <!-- Register Tab -->
               <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
                 <form id="registerForm">
                   <div class="mb-3">
-                    <label for="registerUsername" class="form-label">Benutzername</label>
+                    <label for="registerUsername" class="form-label">${window.i18n.translate("pages.index.auth.username")}</label>
                     <input type="text" class="form-control" id="registerUsername" required>
                   </div>
                   <div class="mb-3">
-                    <label for="registerEmail" class="form-label">E-Mail</label>
+                    <label for="registerEmail" class="form-label">${window.i18n.translate("pages.index.auth.mail")}</label>
                     <input type="email" class="form-control" id="registerEmail" required>
                   </div>
                   <div class="mb-3">
-                    <label for="registerPassword" class="form-label">Passwort</label>
+                    <label for="registerPassword" class="form-label">${window.i18n.translate("pages.index.auth.password")}</label>
                     <input type="password" class="form-control" id="registerPassword" required>
                   </div>
                   <div class="mb-3">
-                    <label for="confirmPassword" class="form-label">Passwort bestätigen</label>
+                    <label for="confirmPassword" class="form-label">${window.i18n.translate("pages.index.auth.confirmPassword")}</label>
                     <input type="password" class="form-control" id="confirmPassword" required>
                   </div>
                   <div class="mb-3 form-check">
                     <input type="checkbox" class="form-check-input" id="acceptTerms" required>
                     <label class="form-check-label" for="acceptTerms">
-                      Ich akzeptiere die Nutzungsbedingungen
+                      ${window.i18n.translate("pages.index.auth.acceptTos")}
                     </label>
                   </div>
-                  <button type="submit" class="btn btn-success w-100">Registrieren</button>
+                  <button type="submit" class="btn btn-success w-100">${window.i18n.translate("pages.index.auth.registerButton")}</button>
                 </form>
               </div>
             </div>
@@ -128,21 +124,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     </div>
   `;
 
-    // Füge Modal zum DOM hinzu
     document.body.insertAdjacentHTML('beforeend', modalHTML);
 
-    // Event Listener für Formulare
     const loginForm = document.getElementById('loginForm');
     const registerForm = document.getElementById('registerForm');
 
     loginForm.addEventListener('submit', handleLogin);
     registerForm.addEventListener('submit', handleRegister);
 
-    // Zeige Modal
     const modal = new bootstrap.Modal(document.getElementById('authModal'));
     modal.show();
 
-    // Entferne Modal aus DOM wenn es geschlossen wird
     document.getElementById('authModal').addEventListener('hidden.bs.modal', function () {
       this.remove();
     });
@@ -170,11 +162,25 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const result = await response.json();
 
-    // Beispiel für erfolgreiches Login
-
-    // Modal schließen
-    const modal = bootstrap.Modal.getInstance(document.getElementById('authModal'));
-    modal.hide();
+    switch (result.message) {
+      case "USER_NOT_FOUND":
+        showFeedback({ success: false, message: `${window.i18n.translate("pages.index.auth.messages.userNotFound")}` });
+        break;
+      case "INVALID_PASSWORD":
+        showFeedback({ success: false, message: `${window.i18n.translate("pages.index.auth.messages.invalidPassword")}` });
+        break;
+      case "UNDEFINED_REQUEST":
+        showFeedback({ success: false, message: `${window.i18n.translate("pages.index.auth.messages.missingCredentials")}` });
+        break;
+      case "LOGIN_SUCCESS":
+        showFeedback({ success: true, message: `${window.i18n.translate("pages.index.auth.messages.loginSuccess")}` });
+        break;
+    }
+    if (result.success) {
+      const modal = bootstrap.Modal.getInstance(document.getElementById('authModal'));
+      modal.hide();
+      return;
+    }
   }
 
   //desc: behandelt registrierung formular
@@ -187,12 +193,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     const confirmPassword = document.getElementById('confirmPassword').value;
     const acceptTerms = document.getElementById('acceptTerms').checked;
 
-    // Passwort-Validierung
     if (password !== confirmPassword) {
+      showFeedback({ success: false, message: `${window.i18n.translate("pages.index.auth.messages.passwordsDoNotMatch")}` });
       return;
     }
 
     if (!acceptTerms) {
+      showFeedback({ success: false, message: `${window.i18n.translate("pages.index.auth.messages.termsNotAccepted")}` });
       return;
     }
 
@@ -210,10 +217,23 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const result = await response.json();
 
-    // Beispiel für erfolgreiche Registrierung
+    switch (result.message) {
+      case "USERNAME_ALREADY_EXISTS":
+        showFeedback({ success: false, message: `${window.i18n.translate("pages.index.auth.messages.userExists")}` });
+        break;
+      case "EMAIL_ALREADY_EXISTS":
+        showFeedback({ success: false, message: `${window.i18n.translate("pages.index.auth.messages.emailExists")}` });
+        break;
+      case "UNDEFINED_REQUEST":
+        showFeedback({ success: false, message: `${window.i18n.translate("pages.index.auth.messages.missingCredentials")}` });
+        break;
+      case "USER_CREATED":
+        showFeedback({ success: true, message: `${window.i18n.translate("pages.index.auth.messages.registerSuccess")}` });
+        break;
+    }
+    if (result.success) {
+      document.getElementById("login-tab").click();
 
-    // Modal schließen
-    const modal = bootstrap.Modal.getInstance(document.getElementById('authModal'));
-    modal.hide();
+    }
   }
 });

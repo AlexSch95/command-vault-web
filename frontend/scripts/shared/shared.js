@@ -56,112 +56,17 @@ export async function loadGlobalTheme() {
   }
 }
 
-//desc: zeigt ein modal mit login und registrierung tabs
-export function showAuthModal() {
-  // Entferne existierendes Modal falls vorhanden
-  const existingModal = document.getElementById('authModal');
-  if (existingModal) {
-    existingModal.remove();
+export async function checkAuth() {
+  try {
+    const response = await fetch('/api/auth/verify');
+    const result = await response.json();
+    if (!result.success) {
+      window.location.href = "./index.html";
+      return;
+    }
+    return { success: true, message: "AUTH_SUCCESS" };
+  } catch (error) {
+    console.error('Fehler bei der Authentifizierung:', error);
+    return { success: false, message: "AUTH_FAILED" };
   }
-
-  // Erstelle Modal HTML
-  const modalHTML = `
-    <div id="authModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="authModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="authModalLabel">Anmeldung</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs" id="authTabs" role="tablist">
-              <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab" aria-controls="login" aria-selected="true">
-                  Login
-                </button>
-              </li>
-              <li class="nav-item" role="presentation">
-                <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register" type="button" role="tab" aria-controls="register" aria-selected="false">
-                  Registrierung
-                </button>
-              </li>
-            </ul>
-            
-            <!-- Tab panes -->
-            <div class="tab-content mt-3" id="authTabContent">
-              <!-- Login Tab -->
-              <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
-                <form id="loginForm">
-                  <div class="mb-3">
-                    <label for="loginEmail" class="form-label">E-Mail</label>
-                    <input type="email" class="form-control" id="loginEmail" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="loginPassword" class="form-label">Passwort</label>
-                    <input type="password" class="form-control" id="loginPassword" required>
-                  </div>
-                  <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="rememberMe">
-                    <label class="form-check-label" for="rememberMe">
-                      Angemeldet bleiben
-                    </label>
-                  </div>
-                  <button type="submit" class="btn btn-primary w-100">Anmelden</button>
-                </form>
-              </div>
-              
-              <!-- Register Tab -->
-              <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-                <form id="registerForm">
-                  <div class="mb-3">
-                    <label for="registerUsername" class="form-label">Benutzername</label>
-                    <input type="text" class="form-control" id="registerUsername" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="registerEmail" class="form-label">E-Mail</label>
-                    <input type="email" class="form-control" id="registerEmail" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="registerPassword" class="form-label">Passwort</label>
-                    <input type="password" class="form-control" id="registerPassword" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="confirmPassword" class="form-label">Passwort bestätigen</label>
-                    <input type="password" class="form-control" id="confirmPassword" required>
-                  </div>
-                  <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="acceptTerms" required>
-                    <label class="form-check-label" for="acceptTerms">
-                      Ich akzeptiere die Nutzungsbedingungen
-                    </label>
-                  </div>
-                  <button type="submit" class="btn btn-success w-100">Registrieren</button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
-
-  // Füge Modal zum DOM hinzu
-  document.body.insertAdjacentHTML('beforeend', modalHTML);
-
-  // Event Listener für Formulare
-  const loginForm = document.getElementById('loginForm');
-  const registerForm = document.getElementById('registerForm');
-
-  loginForm.addEventListener('submit', handleLogin);
-  registerForm.addEventListener('submit', handleRegister);
-
-  // Zeige Modal
-  const modal = new bootstrap.Modal(document.getElementById('authModal'));
-  modal.show();
-
-  // Entferne Modal aus DOM wenn es geschlossen wird
-  document.getElementById('authModal').addEventListener('hidden.bs.modal', function () {
-    this.remove();
-  });
 }

@@ -77,6 +77,30 @@
                     "tip4": "Teste deine Themes in verschiedenen Bereichen",
                     "tip5": "Erstelle regelmäßig Backups deiner Datenbank"
                 }
+            },
+            "auth": {
+                "header": "Anmelden",
+                "loginTab": "Login",
+                "registerTab": "Registrieren",
+                "username": "Benutzername",
+                "password": "Passwort",
+                "confirmPassword": "Passwort bestätigen",
+                "rememberMe": "Angemeldet bleiben",
+                "loginButton": "Anmelden",
+                "registerButton": "Registrieren",
+                "mail": "E-Mail",
+                "acceptTos": "Ich akzeptiere die Nutzungsbedingungen",
+                "messages": {
+                    "missingCredentials": "Es wurden ungültige Daten übermittelt. Bitte Prüfe deine Eingaben.",
+                    "userNotFound": "Benutzer nicht gefunden. Bitte überprüfe deine Eingaben.",
+                    "invalidPassword": "Ungültiges Passwort. Bitte versuche es erneut.",
+                    "loginSuccess": "Erfolgreich angemeldet!",
+                    "passwordsDoNotMatch": "Die Passwörter stimmen nicht überein.",
+                    "termsNotAccepted": "Du musst die Nutzungsbedingungen akzeptieren, um fortzufahren.",
+                    "userExists": "Der Benutzername existiert bereits. Bitte wähle einen anderen.",
+                    "emailExists": "Die E-Mail-Adresse ist bereits registriert.",
+                    "registerSuccess": "Registrierung erfolgreich! Bitte melde dich an."
+                }
             }
         },
         "viewCommands": {
