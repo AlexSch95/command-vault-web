@@ -122,6 +122,109 @@ i.bi {
     transition: background-color 0.2s;
 }
 
+/* desc: Auth Modal Styling */
+.modal-content {
+    background-color: var(--bg-secondary) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+
+.modal-header {
+    background-color: var(--bg-secondary) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+
+.modal-title {
+    color: var(--text-primary) !important;
+}
+
+.modal-body {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+
+.nav-tabs {
+    border-bottom: 1px solid var(--border-color) !important;
+}
+
+.nav-tabs .nav-link {
+    background-color: transparent !important;
+    border: 1px solid var(--border-color) !important;
+    border-bottom: none !important;
+    color: var(--text-primary) !important;
+    margin-right: 2px;
+}
+
+.nav-tabs .nav-link:hover {
+    background-color: var(--accent-color) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: var(--bg-secondary) !important;
+    border-color: var(--border-color) !important;
+    border-bottom: 1px solid var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+
+.tab-content {
+    background-color: var(--bg-secondary) !important;
+}
+
+.tab-pane {
+    color: var(--text-primary) !important;
+}
+
+.form-label {
+    color: var(--text-primary) !important;
+}
+
+.form-check-label {
+    color: var(--text-primary) !important;
+}
+
+.form-check-input {
+    background-color: var(--bg-secondary) !important;
+    border-color: var(--border-color) !important;
+}
+
+.form-check-input:checked {
+    background-color: var(--accent-color) !important;
+    border-color: var(--accent-color) !important;
+}
+
+.form-check-input:focus {
+    border-color: var(--border-color) !important;
+    box-shadow: 0 0 0 0.25rem rgba(110, 110, 110, 0.25) !important;
+}
+
+.btn-close {
+    filter: invert(1) !important;
+    opacity: 0.8 !important;
+}
+
+.btn-close:hover {
+    opacity: 1 !important;
+}
+
+.btn-success {
+    background-color: #198754 !important;
+    border-color: #198754 !important;
+    color: var(--text-primary) !important;
+}
+
+.btn-success:hover {
+    background-color: #157347 !important;
+    border-color: #146c43 !important;
+    filter: brightness(1.1) !important;
+}
+
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
 .titlebar-btn:hover {
     background-color: var(--accent-color);
 }
@@ -307,7 +410,7 @@ tbody tr:hover td {
 .bg-image-add:active {
     transform: scale(0.95);
     transition: ease 0.1s all;
-}   
+}
 
 .bg-image-container {
     position: relative;
@@ -604,7 +707,7 @@ button .bi {
     overflow: visible;
     animation: fadeIn 0.7s cubic-bezier(.77, 0, .18, 1) both;
     opacity: 0.85;
-    
+
     /* Glasmorphism */
     background-color: color-mix(in srgb, var(--bg-secondary) 50%, transparent) !important;
     backdrop-filter: blur(12px) saturate(180%);
@@ -616,6 +719,16 @@ button .bi {
 .modal-card {
     color: var(--text-primary) !important;
     background-color: var(--bg-secondary) !important;
+    border-color: var(--border-color) !important;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    overflow: visible;
+    animation: fadeIn 0.7s cubic-bezier(.77, 0, .18, 1) both;
+}
+
+.modal-content {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
     border-color: var(--border-color) !important;
     transition: all 0.3s ease;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);

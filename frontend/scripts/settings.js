@@ -9,9 +9,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     await window.i18n.ready;
   }
 
-  loadGlobalTheme();
+  await loadGlobalTheme();
   await themesHandler.init();
-  // await categoriesHandler.init();
+  await categoriesHandler.init();
   // await restoreCommandsHandler.init();
 
 
@@ -29,11 +29,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (theme) {
       themesHandler.applyTheme(theme);
     }
-  });
-
-  document.getElementById('import-background').addEventListener('change', (e) => {
-    const fileName = e.target.files[0]?.name;
-    themesHandler.saveNewBackgroundImage();
   });
 
   document.getElementById('backgroundimages-list').addEventListener('click', async (event) => {

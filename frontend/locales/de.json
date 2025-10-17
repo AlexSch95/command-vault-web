@@ -17,11 +17,16 @@
                 "desc": "Finde deine gespeicherten Befehle schnell und einfach durch intelligente Such- und Filterfunktionen."
             },
             "feature3": {
-                "title": "Sicher & Lokal",
-                "desc": "Deine Daten bleiben lokal auf deinem Gerät. Keine Cloud, keine Sorgen."
+                "title": "Immer Erreichbar",
+                "desc": "Egal von wo, melde dich mit deinem Profil an um auf dein Command-Vault zuzugreifen."
+            },
+            "feature4": {
+                "title": "Registrieren & Anmelden",
+                "desc": "Erstelle ein Konto oder melde dich an um loszulegen!"
             },
             "buttons": {
-                "toGetStarted": "Zur Einführung"
+                "toGetStarted": "Zur Einführung",
+                "login": "Jetzt loslegen!"
             },
             "gettingStarted": {
                 "title": "Erste Schritte",
