@@ -10,7 +10,6 @@
 
 * {
     font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
-    transition: width 0.5s, height 0.5s, max-width 0.5s, max-height 0.5s;
 }
 
 body {
@@ -88,25 +87,6 @@ i.bi {
     z-index: 9999;
     -webkit-app-region: no-drag;
     position: fixed;
-}
-
-.settings-modal-dialog {
-    max-width: 95vw;
-    width: 95%;
-}
-
-.settings-modal-content {
-    height: 95vh;
-}
-
-.settings-modal-body {
-    padding: 0;
-}
-
-.settings-iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
 }
 
 .titlebar-btn {
@@ -234,10 +214,6 @@ i.bi {
     color: white;
 }
 
-.titlebar-btn.saveandclose:hover {
-    background-color: #107c10;
-    color: white;
-}
 
 /* desc: Layout - Seitennavigation */
 .side-nav {
@@ -253,14 +229,6 @@ i.bi {
     gap: 15px;
 }
 
-.nav-divider {
-    width: 30px;
-    height: 4px;
-    background-color: var(--border-color);
-    border: none;
-    margin: 6px auto;
-    opacity: 0.6;
-}
 
 .nav-button {
     width: 40px;
@@ -382,8 +350,7 @@ tbody tr:hover td {
     filter: brightness(1.1);
 }
 
-.bg-image-preview,
-.bg-image-add {
+.bg-image-preview {
     width: 150px;
     height: 150px;
     border-radius: 5px;
@@ -391,13 +358,19 @@ tbody tr:hover td {
     transition: ease 0.3s all;
 }
 
-.bg-image-preview *,
-.bg-image-add * {
+.bg-image-preview * {
     pointer-events: none;
 }
 
-.bg-image-preview:hover,
-.bg-image-add:hover {
+.bg-image-preview[data-image="none"] {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    object-fit: initial;
+    width: 100% !important;
+}
+
+.bg-image-preview:hover{
     transform: translateY(-2px);
     transform: scale(1.02);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -406,8 +379,7 @@ tbody tr:hover td {
     cursor: pointer;
 }
 
-.bg-image-preview:active,
-.bg-image-add:active {
+.bg-image-preview:active {
     transform: scale(0.95);
     transition: ease 0.1s all;
 }
@@ -416,35 +388,6 @@ tbody tr:hover td {
     position: relative;
     display: inline-block;
     width: 100%;
-}
-
-.bg-image-delete-btn {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    width: 32px;
-    height: 32px;
-    background-color: #dc3545;
-    border-radius: 50%;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 10;
-    transition: all 0.2s ease;
-    font-size: 14px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.bg-image-delete-btn:hover {
-    background-color: #c82333;
-    transform: scale(1.1);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-}
-
-.bg-image-delete-btn:active {
-    transform: scale(0.95);
 }
 
 .bg-image-container .bg-image-preview {
@@ -580,6 +523,18 @@ tbody tr:hover td {
 
 .CodeMirror-cursor {
     border-left: 2px solid var(--accent-color) !important;
+}
+
+.CodeMirror-measure {
+    position: absolute !important;
+    visibility: hidden !important;
+    overflow: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+.CodeMirror-measure pre {
+    visibility: hidden !important;
 }
 
 .editor-toolbar {

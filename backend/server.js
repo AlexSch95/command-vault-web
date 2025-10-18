@@ -99,6 +99,16 @@ app.post("/api/auth/login", async (req, res) => {
     }
 });
 
+app.post("/api/auth/logout", authTokenMiddleware, async (req, res) => {
+    try {
+        res.clearCookie('token');
+        res.status(200).json({ success: true, message: "LOGOUT_SUCCESS" });
+    } catch (error) {
+        console.error('Fehler in Route /api/auth/logout:', error);
+        res.status(500).json({ success: false, message: "INTERNAL_SERVER_ERROR" });
+    }
+});
+
 app.post("/api/auth/register", async (req, res) => {
     try {
         const { username, password, email } = req.body;
@@ -172,6 +182,190 @@ app.post("/api/categories/new", authTokenMiddleware, async (req, res) => {
                 success: false,
                 message: "INTERNAL_SERVER_ERROR"
             });
+    }
+});
+
+app.delete("/api/categories/delete/:categoryId", authTokenMiddleware, async (req, res) => {
+    const { categoryId } = req.params;
+    try {
+        const db = await connectToDatabase();
+        await db.execute('DELETE FROM categories WHERE category_id = ? AND user_id = ?', [categoryId, req.userId]);
+        res.status(200).json({
+            success: true,
+            message: "CATEGORY_DELETED"
+        });
+    } catch (error) {
+        console.error('Fehler beim Löschen der Kategorie:', error);
+        res.status(500).json({
+            success: false,
+            message: "INTERNAL_SERVER_ERROR"
+        });
+    }
+});
+
+app.post("/api/commands/add", authTokenMiddleware, async (req, res) => {
+    const { category_id, cmd_title, cmd, cmd_description, cmd_source } = req.body;
+    try {
+        const db = await connectToDatabase();
+        await db.execute('INSERT INTO commands (category_id, cmd_title, cmd, cmd_description, cmd_source, user_id) VALUES (?, ?, ?, ?, ?, ?)', [category_id, cmd_title, cmd, cmd_description, cmd_source, req.userId]);
+        await db.end();
+        res.status(201).json({
+            success: true,
+            message: "COMMAND_ADDED"
+        });
+    } catch (error) {
+        console.error('Fehler beim Hinzufügen des Befehls:', error);
+        res.status(500).json({
+            success: false,
+            message: "INTERNAL_SERVER_ERROR"
+        });
+    }
+});
+
+app.get("/api/commands/all", authTokenMiddleware, async (req, res) => {
+    try {
+        const db = await connectToDatabase();
+        const [commands] = await db.execute(`
+                            SELECT 
+                                c.cmd_id,
+                                c.cmd_title,
+                                c.cmd,
+                                c.cmd_description,
+                                c.cmd_source,
+                                c.created_at,
+                                cat.category_name,
+                                cat.category_color,
+                                cat.category_id,
+                                c.modified,
+                                c.last_modified,
+                                c.trash_bin,
+                                GREATEST(c.last_modified, c.created_at) as latest_date
+                            FROM commands c
+                            JOIN categories cat ON c.category_id = cat.category_id
+                            WHERE c.user_id = ? AND c.trash_bin = 0
+                            ORDER BY latest_date DESC`, 
+                            [req.userId]);
+        await db.end();
+        res.status(200).json({
+            success: true,
+            message: "COMMANDS_LOADED",
+            data: commands
+        });
+    } catch (error) {
+        console.error('Fehler beim Laden der Befehle:', error);
+        res.status(500).json({
+            success: false,
+            message: "INTERNAL_SERVER_ERROR"
+        });
+    }
+});
+
+app.post("/api/commands/update/:cmdId", authTokenMiddleware, async (req, res) => {
+    const { cmdId } = req.params;
+    const { category_id, cmd_title, cmd, cmd_description, cmd_source } = req.body;
+    try {
+        const db = await connectToDatabase();
+        await db.execute('UPDATE commands SET category_id = ?, cmd_title = ?, cmd = ?, cmd_description = ?, cmd_source = ?, modified = 1, last_modified = NOW() WHERE cmd_id = ? AND user_id = ?', [category_id, cmd_title, cmd, cmd_description, cmd_source, cmdId, req.userId]);
+        await db.end();
+        res.status(200).json({
+            success: true,
+            message: "COMMAND_UPDATED"
+        });
+    } catch (error) {
+        console.error('Fehler beim Aktualisieren des Befehls:', error);
+        res.status(500).json({
+            success: false,
+            message: "INTERNAL_SERVER_ERROR"
+        });
+    }
+});
+
+app.post("/api/commands/move-to-trash/:cmdId", authTokenMiddleware, async (req, res) => {
+    const { cmdId } = req.params;
+    try {
+        const db = await connectToDatabase();
+        await db.execute('UPDATE commands SET trash_bin = 1 WHERE cmd_id = ? AND user_id = ?', [cmdId, req.userId]);
+        await db.end();
+        res.status(200).json({
+            success: true,
+            message: "COMMAND_MOVED_TO_TRASH"
+        });
+    } catch (error) {
+        console.error('Fehler beim Verschieben des Befehls in den Papierkorb:', error);
+        res.status(500).json({
+            success: false,
+            message: "INTERNAL_SERVER_ERROR"
+        });
+    }
+});
+
+app.delete("/api/commands/delete/:cmdId", authTokenMiddleware, async (req, res) => {
+    const { cmdId } = req.params;
+    try {
+        const db = await connectToDatabase();
+        await db.execute('DELETE FROM commands WHERE cmd_id = ? AND user_id = ? AND trash_bin = 1', [cmdId, req.userId]);
+        await db.end();
+        res.status(200).json({
+            success: true,
+            message: "COMMAND_DELETED"
+        });
+    } catch (error) {
+        console.error('Fehler beim Löschen des Befehls:', error);
+        res.status(500).json({
+            success: false,
+            message: "INTERNAL_SERVER_ERROR"
+        });
+    }
+});
+
+app.get("/api/commands/trash", authTokenMiddleware, async (req, res) => {
+    try {
+        const db = await connectToDatabase();
+        const [commands] = await db.execute(`
+                        SELECT 
+                            c.cmd_id,
+                            c.user_id,
+                            c.category_id,
+                            cat.category_name,
+                            cat.category_color,
+                            c.cmd,
+                            c.last_modified as deleted_at
+                        FROM commands c
+                        JOIN categories cat ON c.category_id = cat.category_id
+                        WHERE c.user_id = ? AND c.trash_bin = 1
+                        ORDER BY c.last_modified DESC
+                    `, [req.userId]);
+        await db.end();
+        res.status(200).json({
+            success: true,
+            message: "TRASH_LOADED",
+            data: commands
+        });
+    } catch (error) {
+        console.error('Fehler beim Laden der gelöschten Befehle:', error);
+        res.status(500).json({
+            success: false,
+            message: "INTERNAL_SERVER_ERROR"
+        });
+    }
+});
+
+app.post("/api/commands/trash/restore/:cmdId", authTokenMiddleware, async (req, res) => {
+    const { cmdId } = req.params;
+    try {
+        const db = await connectToDatabase();
+        await db.execute('UPDATE commands SET trash_bin = 0 WHERE cmd_id = ? AND user_id = ?', [cmdId, req.userId]);
+        await db.end();
+        res.status(200).json({
+            success: true,
+            message: "COMMAND_RESTORED"
+        });
+    } catch (error) {
+        console.error('Fehler beim Wiederherstellen des Befehls:', error);
+        res.status(500).json({
+            success: false,
+            message: "INTERNAL_SERVER_ERROR"
+        });
     }
 });
 

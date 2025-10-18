@@ -3,7 +3,9 @@
         "home": "Startseite",
         "addCommand": "Befehl hinzufügen",
         "viewCommands": "Befehle anzeigen",
-        "settings": "Einstellungen"
+        "settings": "Einstellungen",
+        "logout": "Abmelden",
+        "login": "Anmelden"
     },
     "pages": {
         "index": {
@@ -128,7 +130,9 @@
                 "sourceLabel": "Quelle",
                 "createdAt": "Hinzugefügt am",
                 "lastEdited": "Zuletzt bearbeitet am",
-                "markdownSupported": "Markdown wird unterstützt"
+                "markdownSupported": "Markdown wird unterstützt",
+                "updated": "Befehl erfolgreich aktualisiert.",
+                "updateError": "Fehler beim Aktualisieren des Befehls."
             },
             "messages": {
                 "cmdLoadError": "Fehler beim Laden der Befehle.",

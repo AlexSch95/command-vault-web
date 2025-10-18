@@ -26,8 +26,9 @@ CREATE TABLE IF NOT EXISTS commands (
     cmd TEXT NOT NULL,
     cmd_description TEXT,
     cmd_source TEXT,
+    trash_bin TINYINT DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    modified INTEGER DEFAULT 0,
+    modified TINYINT DEFAULT 0,
     last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE CASCADE

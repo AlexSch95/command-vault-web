@@ -23,7 +23,6 @@ export async function setupCurrentColors() {
 }
 
 export async function customTheme() {
-
   const backgroundImageName = savedTheme.backgroundImage;
   const themeData = {
     bgPrimary: document.getElementById('bg-primary-color').value,
@@ -37,7 +36,7 @@ export async function customTheme() {
   applyTheme(themeData);
 }
 
-export async function applyTheme(chosenTheme) {
+async function applyTheme(chosenTheme) {
   let themeData;
 
   if (typeof chosenTheme === 'string') {
