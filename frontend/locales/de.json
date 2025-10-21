@@ -103,6 +103,12 @@
                     "emailExists": "Die E-Mail-Adresse ist bereits registriert.",
                     "registerSuccess": "Registrierung erfolgreich! Bitte melde dich an."
                 }
+            },
+            "logout": {
+                "title": "Abmelden",
+                "content": "Möchtest du dich wirklich abmelden?",
+                "cancelButton": "Abbrechen",
+                "logoutButton": "Abmelden"
             }
         },
         "viewCommands": {
@@ -251,18 +257,6 @@
                     "backgroundImageDeleteError": "Fehler beim Löschen des Hintergrundbilds"
                 }
             },
-            "update": {
-                "title": "Anwendung aktualisieren",
-                "checkButton": "Nach Updates suchen",
-                "checking": "Suche nach Updates...",
-                "available": "Update verfügbar: v",
-                "noUpdate": "Keine Updates verfügbar. Du bist auf dem neuesten Stand!",
-                "error": "Fehler beim Überprüfen auf Updates.",
-                "downloading": "Update wird heruntergeladen...",
-                "restartAndInstall": "Neu starten & installieren",
-                "downloaded": " heruntergeladen! Starte die Anwendung neu, um zu installieren.",
-                "checkUpdatesButton": "Nach Updates suchen"
-            },
             "restorecommand": {
                 "title": "Befehle Wiederherstellen",
                 "description": "Hier findest du zuvor gelöschte Befehle.Wähle einen Befehl aus der Liste und stelle Ihn wieder her oder lösche Ihn endgültig.",
@@ -281,95 +275,7 @@
                     "actions": "Aktionen"
                 }
             },
-            "backupDb": {
-                "title": "Datenbank sichern",
-                "description": "Erstelle eine Sicherungskopie deiner aktuellen Datenbank. Das Backup wird mit Datum und Uhrzeit in einem separaten Backup-Verzeichnis gespeichert.",
-                "location": "Backups werden unter %appdata%/command-vault/backups/ gespeichert.",
-                "startBackupButton": "Backup erstellen",
-                "gotoBackupDir": "Verzeichnis öffnen",
-                "starting": "Backup wird erstellt...",
-                "backupCreatedInfo": "Backup erstellt in Verzeichnis: ",
-                "messages": {
-                    "backupSuccess": "Backup erfolgreich erstellt!",
-                    "dbBackupFailed": "Fehler beim Erstellen des Backups."
-                },
-                "backupsList": {
-                    "title": "Vorhandene Backups",
-                    "noBackups": "Keine Backups vorhanden.",
-                    "tableHeaders": {
-                        "fileName": "Dateiname",
-                        "date": "Datum",
-                        "time": "Uhrzeit",
-                        "actions": "Aktionen"
-                    },
-                    "buttons": {
-                        "restore": "Wiederherstellen",
-                        "delete": "Löschen"
-                    },
-                    "messages": {
-                        "restoreSuccess": "Datenbank erfolgreich wiederhergestellt!",
-                        "restoreError": "Fehler beim Wiederherstellen der Datenbank.",
-                        "deleteSuccess": "Backup erfolgreich gelöscht.",
-                        "deleteError": "Fehler beim Löschen des Backups."
-                    },
-                    "modal": {
-                        "title": "Backup löschen",
-                        "warning": "ACHTUNG: Dadurch wird das Backup dauerhaft gelöscht!",
-                        "confirmThis1": "Gib ",
-                        "confirmThisWord": "LÖSCHEN",
-                        "confirmThis2": " ein, um das Löschen zu bestätigen:",
-                        "cancelButton": "Abbrechen",
-                        "deleteButton": "Backup löschen"
-                    }
-                }
-            },
-            "clearDb": {
-                "title": "Datenbank bereinigen",
-                "description": "Bereinige deine Datenbank, indem du alle gespeicherten Befehle und Kategorien dauerhaft löschst. Diese Aktion kann nicht rückgängig gemacht werden.",
-                "warning": "WARNUNG: Diese Aktion wird ALLE deine gespeicherten Befehle und Kategorien dauerhaft löschen!",
-                "backupHint": "Es wird empfohlen, vor der Bereinigung ein Backup deiner Datenbank zu erstellen. Die Datenbank findest du unter dem Pfad %appdata%/command-vault/ unter dem Namen database.db",
-                "resetDbButton": "Datenbank bereinigen",
-                "dangerousAction": "Achtung: Gefährliche Aktion",
-                "messages": {
-                    "dbResetSuccess": "Datenbank erfolgreich bereinigt",
-                    "dbResetError": "Fehler beim Bereinigen der Datenbank"
-                },
-                "modal": {
-                    "title": "Datenbank bereinigen",
-                    "lastWarning": "LETZTE WARNUNG:",
-                    "warningText1": "Diese Aktion wird ALLE Befehle und Kategorien unwiderruflich löschen!",
-                    "warningText2": "Stelle sicher, dass du ein Backup hast, bevor du fortfährst.",
-                    "confirmThis1": "Gib ",
-                    "confirmThisWord": "DATENBANK BEREINIGEN",
-                    "confirmThis2": " ein, um das Löschen zu bestätigen:",
-                    "cancelButton": "Abbrechen",
-                    "deleteButton": "Datenbank bereinigen"
-                }
-            },
-            "manageDbTitle": "Datenbank verwalten",
-            "resetDbWarning": "Dies wird alle deine gespeicherten Befehle und Kategorien dauerhaft löschen. Diese Aktion kann nicht rückgängig gemacht werden.",
-            "backupDbHint": "Es wird empfohlen, vor der Bereinigung ein Backup deiner Datenbank zu erstellen. Die Datenbank findest du unter dem Pfad %appdata%/command-vault/ unter dem Namen database.db",
-            "resetDbButton": "Datenbank bereinigen",
-            "updateAppTitle": "Anwendung aktualisieren",
-            "checkUpdatesButton": "Nach Updates suchen",
-            "addTechButton": "Neue Kategorie",
-            "updateArea": {
-                "checking": "Suche nach Updates...",
-                "available": "Update verfügbar: v",
-                "notAvailable": "Keine Updates verfügbar. Du bist auf dem neuesten Stand!",
-                "error": "Fehler beim Überprüfen auf Updates.",
-                "downloading": "Update wird heruntergeladen...",
-                "restartAndInstall": "Neu starten & installieren",
-                "downloaded": " heruntergeladen! Starte die Anwendung neu, um zu installieren."
-            },
-            "backupArea": {
-                "title": "Datenbank sichern",
-                "description": "Erstelle eine Sicherungskopie deiner aktuellen Datenbank. Das Backup wird mit Datum und Uhrzeit in einem separaten Backup-Verzeichnis gespeichert.",
-                "location": "Backups werden unter %appdata%/command-vault/backups/ gespeichert.",
-                "startBackupButton": "Backup erstellen",
-                "starting": "Backup wird erstellt...",
-                "backupCreatedInfo": "Backup erstellt in Verzeichnis: "
-            }
+            "addTechButton": "Neue Kategorie"
         }
     }
 }

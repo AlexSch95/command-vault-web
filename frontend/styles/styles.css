@@ -629,6 +629,59 @@ tbody tr:hover td {
     }
 }
 
+/* Language Switcher oben rechts positionieren */
+#languageContainer {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+/* Bootstrap margin entfernen */
+#languageContainer.me-4 {
+  margin-right: 0 !important;
+}
+
+/* Optional: Nav-Button Styling für den Dropdown-Toggle beibehalten */
+#languageContainer .nav-link {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  color: var(--text-color);
+  text-decoration: none;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+  background: var(--card-background-color);
+  border: 1px solid var(--border-color);
+}
+
+#languageContainer .nav-link:hover {
+  background-color: var(--accent-color);
+  color: var(--card-background-color);
+}
+
+#languageContainer .nav-link i {
+  margin-right: 0.5rem;
+}
+
+/* Dropdown-Menü Styling anpassen */
+#languageContainer .dropdown-menu {
+  background-color: var(--card-background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#languageContainer .dropdown-item {
+  color: var(--text-color);
+  padding: 0.75rem 1rem;
+  transition: all 0.3s ease;
+}
+
+#languageContainer .dropdown-item:hover {
+  background-color: var(--accent-color);
+  color: var(--card-background-color);
+}
 
 .btn i,
 button i,

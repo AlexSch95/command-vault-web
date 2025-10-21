@@ -1,4 +1,4 @@
-import { loadGlobalTheme, checkAuth, showFeedback, initNavigation } from "./shared/shared.js";
+import { loadGlobalTheme, checkAuth, showFeedback, initNavigation, setupLanguageSwitcher } from "./shared/shared.js";
 import { themes } from "./shared/presetThemes.js";
 
 
@@ -21,7 +21,8 @@ async function initPage() {
 }
 
 initPage();
-await loadGlobalTheme();
+loadGlobalTheme();
+setupLanguageSwitcher();
 
 //desc: globale variablen
 let newTechMode = false;

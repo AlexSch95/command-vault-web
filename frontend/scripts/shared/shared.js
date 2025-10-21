@@ -1,5 +1,17 @@
 import { themes } from "./presetThemes.js";
 
+export function setupLanguageSwitcher() {
+  const languageSwitchers = document.querySelectorAll('.language-switcher');
+  languageSwitchers.forEach(switcher => {
+    switcher.addEventListener('click', async (event) => {
+      event.preventDefault();
+      const selectedLang = switcher.getAttribute('data-language');
+      await window.switchLanguage(selectedLang);
+      window.i18n.updatePage();
+    });
+  });
+}
+
 //desc: feedback funktion
 export function showFeedback(result) {
   const { success, message } = result;
@@ -99,12 +111,57 @@ export function initNavigation(currentPage, authStatus) {
     `;
     logoutButton.addEventListener('click', async (event) => {
       event.preventDefault();
-      const response = await fetch('/api/auth/logout', { method: 'POST' });
-      const result = await response.json();
-      if (result.success) {
-        window.location.href = "./index.html";
+
+      // Modal HTML erstellen
+      const confirmModalHTML = `
+    <div id="logoutConfirmModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="logoutConfirmModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="logoutConfirmModalLabel">${window.i18n.translate("pages.index.logout.title")}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>${window.i18n.translate("pages.index.logout.content")}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">${window.i18n.translate("pages.index.logout.cancelButton")}</button>
+            <button type="button" class="btn btn-danger" id="confirmLogoutBtn">${window.i18n.translate("pages.index.logout.logoutButton")}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+      // Bestehendes Modal entfernen falls vorhanden
+      const existingModal = document.getElementById('logoutConfirmModal');
+      if (existingModal) {
+        existingModal.remove();
       }
+
+      // Modal zum DOM hinzufügen
+      document.body.insertAdjacentHTML('beforeend', confirmModalHTML);
+
+      // Modal anzeigen
+      const modal = new bootstrap.Modal(document.getElementById('logoutConfirmModal'));
+      modal.show();
+
+      // Bestätigen Button Event
+      document.getElementById('confirmLogoutBtn').addEventListener('click', async () => {
+        const response = await fetch('/api/auth/logout', { method: 'POST' });
+        const result = await response.json();
+        if (result.success) {
+          modal.hide();
+          window.location.href = "./index.html";
+        }
+      });
+
+      // Modal nach dem Schließen entfernen
+      document.getElementById('logoutConfirmModal').addEventListener('hidden.bs.modal', function () {
+        this.remove();
+      });
     });
+
     navButtonsContainer.appendChild(logoutButton);
   } else {
     const loginLink = document.createElement('a');

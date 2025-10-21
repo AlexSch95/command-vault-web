@@ -3,81 +3,118 @@
         "home": "Home",
         "addCommand": "Add Command",
         "viewCommands": "View Commands",
-        "settings": "Settings"
+        "settings": "Settings",
+        "logout": "Logout",
+        "login": "Login"
     },
     "pages": {
         "index": {
-            "welcomeText": "Manage your most important commands in one place. Save, organize, and quickly find the commands you need. Forgetfulness is a thing of the past.",
+            "welcomeText": "Manage your most important commands in one place. Save, organize, and quickly find the commands you need. Forgetting is a thing of the past.",
             "feature1": {
                 "title": "Customizable",
-                "desc": "Structure your commands by categories for better overview tailored exactly for YOU."
+                "desc": "Structure your commands by categories for better overview tailored specifically for YOU."
             },
             "feature2": {
                 "title": "Quick Overview",
                 "desc": "Find your saved commands quickly and easily through intelligent search and filter functions."
             },
             "feature3": {
-                "title": "Available from anywhere",
+                "title": "Always Accessible",
                 "desc": "No matter where you are, log in with your profile to access your Command Vault."
             },
+            "feature4": {
+                "title": "Register & Login",
+                "desc": "Create an account or log in to get started!"
+            },
             "buttons": {
-                "toGetStarted": "Get Started"
+                "toGetStarted": "Get Started",
+                "login": "Get Started Now!"
             },
             "gettingStarted": {
-                "title": "First Steps",
-                "subtitle": "Get started in just a few minutes with managing your commands",
+                "title": "Getting Started",
+                "subtitle": "Start managing your commands in just a few minutes",
                 "step1": {
-                    "title": "Create First Category",
-                    "point1": "Open Settings (Gear Icon Bottom Right)",
-                    "point2": "Scroll to \"Manage Categories\"",
-                    "point3": "Click on \"New Category\"",
-                    "point4": "Enter a name (e.g. \"Git\", \"Linux\", \"Docker\")",
+                    "title": "Create first category",
+                    "point1": "Open settings (see navigation bar)",
+                    "point2": "Scroll to \"Manage categories\"",
+                    "point3": "Click on \"New category\"",
+                    "point4": "Enter a name (e.g., \"Git\", \"Linux\", \"Docker\")",
                     "point5": "Choose a color and save"
                 },
                 "step2": {
-                    "title": "Add First Command",
+                    "title": "Add first command",
                     "point1": "Navigate to \"Add Command\"",
                     "point2": "Select one of the created categories",
-                    "point3": "Enter title, command, and description",
+                    "point3": "Enter title, command and description",
                     "point4": "Optional: Add a source link",
                     "point5": "Save the command"
                 },
                 "step3": {
-                    "title": "Browse Commands",
+                    "title": "Search commands",
                     "point1": "Go to \"View Commands\"",
                     "point2": "Use the search function or filter by category",
-                    "point3": "Click on the copy icon to copy commands",
+                    "point3": "Click the copy icon to copy commands",
                     "point4": "Edit or delete commands directly"
                 },
                 "step4": {
-                    "title": "Customize Theme",
-                    "point1": "Open Settings (Gear Icon)",
-                    "point2": "Scroll to \"Customize Appearance\"",
-                    "point3": "Choose between Light, Dark, Coffee, or Navy Theme",
+                    "title": "Customize theme",
+                    "point1": "Open settings (see navigation bar)",
+                    "point2": "Scroll to \"Customize appearance\"",
+                    "point3": "Choose between Light, Dark, Coffee or Navy theme",
                     "point4": "Create a custom theme with your own colors",
-                    "point5": "Click \"Apply\" - Theme will be activated immediately"
+                    "point5": "Click \"Apply\" - theme becomes active immediately"
                 },
                 "step5": {
-                    "title": "Manage Categories",
-                    "point1": "Open Settings (Gear Icon)",
+                    "title": "Manage categories",
+                    "point1": "Open settings (see navigation bar)",
                     "point2": "Select an existing category to edit",
                     "point3": "Change name or color as desired",
                     "point4": "Delete unused categories"
                 },
                 "tips": {
                     "title": "Tips",
-                    "tip1": "Use descriptive titles for your commands",
-                    "tip2": "Organize by categories for better overview",
-                    "tip3": "Use Markdown for descriptions",
+                    "tip1": "Use meaningful titles for your commands",
+                    "tip2": "Organize with categories for better overview",
+                    "tip3": "Use Markdown in descriptions",
                     "tip4": "Test your themes in different areas",
-                    "tip5": "Regularly create backups of your database"
+                    "tip5": "Create regular backups of your database"
                 }
+            },
+            "auth": {
+                "header": "Login",
+                "loginTab": "Login",
+                "registerTab": "Register",
+                "username": "Username",
+                "password": "Password",
+                "confirmPassword": "Confirm Password",
+                "rememberMe": "Stay logged in",
+                "loginButton": "Login",
+                "registerButton": "Register",
+                "mail": "Email",
+                "acceptTos": "I accept the terms of service",
+                "messages": {
+                    "missingCredentials": "Invalid data was submitted. Please check your entries.",
+                    "userNotFound": "User not found. Please check your entries.",
+                    "invalidPassword": "Invalid password. Please try again.",
+                    "loginSuccess": "Successfully logged in!",
+                    "passwordsDoNotMatch": "The passwords do not match.",
+                    "termsNotAccepted": "You must accept the terms of service to continue.",
+                    "userExists": "The username already exists. Please choose a different one.",
+                    "emailExists": "The email address is already registered.",
+                    "registerSuccess": "Registration successful! Please log in."
+                }
+            },
+            "logout": {
+                "title": "Logout",
+                "content": "Do you really want to log out?",
+                "cancelButton": "Cancel",
+                "logoutButton": "Logout"
             }
         },
         "viewCommands": {
             "banner": {
                 "title": "My Command Vault",
-                "subtitle": "Browse and manage your saved commands"
+                "subtitle": "Search and manage your saved commands"
             },
             "buttons": {
                 "addNew": "Add New Command",
@@ -99,13 +136,15 @@
                 "sourceLabel": "Source",
                 "createdAt": "Added on",
                 "lastEdited": "Last edited on",
-                "markdownSupported": "Markdown supported"
+                "markdownSupported": "Markdown supported",
+                "updated": "Command successfully updated.",
+                "updateError": "Error updating command."
             },
             "messages": {
                 "cmdLoadError": "Error loading commands.",
                 "categoryLoadError": "Error loading categories.",
-                "cmdDeleted": "Command successfully deleted.",
-                "cmdDeleteError": "Error deleting command.",
+                "cmdDeleted": "Command moved to trash",
+                "cmdDeleteError": "Error moving to trash",
                 "copySuccess": "Copied to clipboard!",
                 "copyError": "Error copying to clipboard."
             }
@@ -113,7 +152,7 @@
         "addCommand": {
             "banner": {
                 "title": "Add New Command",
-                "subtitle": "Save a new command to your Command Vault"
+                "subtitle": "Save a new command in your Command Vault"
             },
             "form": {
                 "categoryLabel": "Category",
@@ -124,7 +163,7 @@
                 "markdownSupported": "Markdown supported",
                 "titlePlaceholder": "Command title",
                 "commandPlaceholder": "Enter your command here...",
-                "sourcePlaceholder": "Link to the command source",
+                "sourcePlaceholder": "Link to command source",
                 "descriptionPlaceholder": "Enter your description here... (Markdown supported)",
                 "noTechPlaceholder": "No categories available. Go to settings to add one."
             },
@@ -134,16 +173,16 @@
             },
             "messages": {
                 "cmdSaved": "Command successfully saved.",
-                "cmdSaveError": "Error saving command. Please check your inputs."
+                "cmdSaveError": "Error saving command. Please check your entries."
             }
         },
         "settings": {
             "quicknav": {
                 "categories": "Manage Categories",
                 "restoreCommands": "Restore Commands",
-                "themes": "Customize Appearance",
+                "themes": "Customize Design",
                 "backupDb": "Backup Database",
-                "clearDb": "Clear Database",
+                "clearDb": "Clean Database",
                 "updateApp": "Update Application"
             },
             "banner": {
@@ -194,46 +233,34 @@
                     "texts": "Texts",
                     "backgrounds": "Backgrounds",
                     "addBackground": "Add",
-                    "noBackground": "No Background",
+                    "noBackground": "No background",
                     "noBgSelected": "No file selected",
                     "availableBgImages": "Background Images",
                     "availableImageName": "Filename",
-                    "noAvailableBgImages": "No Background Images Available",
+                    "noAvailableBgImages": "No background images available",
                     "backgroundColor": "Background Color",
                     "borderColor": "Border Color",
-                    "accentColor": "Accent Color (Buttons etc.)",
+                    "accentColor": "Accent Color (buttons etc.)",
                     "cardBackgroundColor": "Card Background Color",
                     "textColor": "Text Color",
-                    "textColorCode": "Text Color (Code Block)",
-                    "saveTheme": "Save Theme",
+                    "textColorCode": "Text Color (code block)",
+                    "saveTheme": "Save Design",
                     "preview": "Preview",
                     "actions": "Actions"
                 },
                 "messages": {
-                    "themeApplied": "Theme applied",
+                    "themeApplied": "Theme has been applied",
                     "themeSaveError": "Error saving theme",
-                    "backgroundImageApplied": "Background image applied",
+                    "backgroundImageApplied": "Background image has been applied",
                     "backgroundImageError": "Error applying background image",
-                    "backgroundImageDeleted": "Background image deleted",
+                    "backgroundImageDeleted": "Background image has been deleted",
                     "backgroundImageDeleteError": "Error deleting background image"
                 }
             },
-            "update": {
-                "title": "Update Application",
-                "checkButton": "Check for Updates",
-                "checking": "Checking for updates...",
-                "available": "Update available: v",
-                "noUpdate": "No updates available. You are up to date!",
-                "error": "Error checking for updates.",
-                "downloading": "Downloading update...",
-                "restartAndInstall": "Restart & Install",
-                "downloaded": " downloaded! Restart the application to install.",
-                "checkUpdatesButton": "Check for Updates"
-            },
             "restorecommand": {
-                "title": "Restore Command",
-                "description": "Here you can find previously deleted commands. Select a command from the list to restore it or permanently delete it.",
-                "noDeletedCommands": "No deleted commands in the trash-bin.",
+                "title": "Restore Commands",
+                "description": "Here you can find previously deleted commands. Select a command from the list and restore it or delete it permanently.",
+                "noDeletedCommands": "No deleted commands in trash.",
                 "messages": {
                     "restoreSuccess": "Command successfully restored!",
                     "restoreError": "Error restoring command.",
@@ -244,99 +271,11 @@
                     "category": "Category",
                     "command": "Command",
                     "description": "Description",
-                    "deletedAt": "Deleted At",
+                    "deletedAt": "Deleted on",
                     "actions": "Actions"
                 }
             },
-            "backupDb": {
-                "title": "Backup Database",
-                "description": "Create a backup of your current database. The backup will be saved with date and time in a separate backup directory.",
-                "location": "Backups are stored under %appdata%/command-vault/backups/.",
-                "startBackupButton": "Create Backup",
-                "gotoBackupDir": "Open Directory",
-                "starting": "Creating backup...",
-                "backupCreatedInfo": "Backup created in directory: ",
-                "messages": {
-                    "backupSuccess": "Backup successfully created!",
-                    "dbBackupFailed": "Error creating backup."
-                },
-                "backupsList": {
-                    "title": "Available Backups",
-                    "noBackups": "No backups available.",
-                    "tableHeaders": {
-                        "fileName": "File Name",
-                        "date": "Date",
-                        "time": "Time",
-                        "actions": "Actions"
-                    },
-                    "buttons": {
-                        "restore": "Restore",
-                        "delete": "Delete"
-                    },
-                    "messages": {
-                        "restoreSuccess": "Database successfully restored!",
-                        "restoreError": "Error restoring database.",
-                        "deleteSuccess": "Backup successfully deleted.",
-                        "deleteError": "Error deleting backup."
-                    },
-                    "modal": {
-                        "title": "Delete Backup",
-                        "warning": "WARNING: This will permanently delete the backup!",
-                        "confirmThis1": "Enter ",
-                        "confirmThisWord": "DELETE",
-                        "confirmThis2": " to confirm deletion:",
-                        "cancelButton": "Cancel",
-                        "deleteButton": "Delete Backup"
-                    }
-                }
-            },
-            "clearDb": {
-                "title": "Clear Database",
-                "description": "Clean your database by permanently deleting all saved commands and categories. This action cannot be undone.",
-                "warning": "WARNING: This action will permanently delete ALL your saved commands and categories!",
-                "backupHint": "It is recommended to create a backup of your database before clearing. The database can be found under the path %appdata%/command-vault/ under the name database.db",
-                "resetDbButton": "Clear Database",
-                "dangerousAction": "Warning: Dangerous Action",
-                "messages": {
-                    "dbResetSuccess": "Database successfully cleared",
-                    "dbResetError": "Error clearing database"
-                },
-                "modal": {
-                    "title": "Clear Database",
-                    "lastWarning": "FINAL WARNING:",
-                    "warningText1": "This action will irrevocably delete ALL commands and categories!",
-                    "warningText2": "Make sure you have a backup before proceeding.",
-                    "confirmThis1": "Enter ",
-                    "confirmThisWord": "CLEAR DATABASE",
-                    "confirmThis2": " to confirm deletion:",
-                    "cancelButton": "Cancel",
-                    "deleteButton": "Clear Database"
-                }
-            },
-            "manageDbTitle": "Manage Database",
-            "resetDbWarning": "This will permanently delete all your saved commands and categories. This action cannot be undone.",
-            "backupDbHint": "It is recommended to create a backup of your database before clearing. The database can be found under the path %appdata%/command-vault/ under the name database.db",
-            "resetDbButton": "Clear Database",
-            "updateAppTitle": "Update Application",
-            "checkUpdatesButton": "Check for Updates",
-            "addTechButton": "New Category",
-            "updateArea": {
-                "checking": "Checking for updates...",
-                "available": "Update available: v",
-                "notAvailable": "No updates available. You are up to date!",
-                "error": "Error checking for updates.",
-                "downloading": "Downloading update...",
-                "restartAndInstall": "Restart & Install",
-                "downloaded": " downloaded! Restart the application to install."
-            },
-            "backupArea": {
-                "title": "Backup Database",
-                "description": "Create a backup of your current database. The backup will be saved with date and time in a separate backup directory.",
-                "location": "Backups are stored under %appdata%/command-vault/backups/.",
-                "startBackupButton": "Create Backup",
-                "starting": "Creating backup...",
-                "backupCreatedInfo": "Backup created in directory: "
-            }
+            "addTechButton": "New Category"
         }
     }
 }

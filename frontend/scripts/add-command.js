@@ -1,4 +1,4 @@
-import { showFeedback, loadGlobalTheme, checkAuth, initNavigation } from "./shared/shared.js";
+import { showFeedback, loadGlobalTheme, checkAuth, initNavigation, setupLanguageSwitcher } from "./shared/shared.js";
 
 async function initPage() {
   const authStatus = await checkAuth();
@@ -18,6 +18,7 @@ initPage();
 let markdownDescription;
 
 loadGlobalTheme();
+setupLanguageSwitcher();
 
 function loadMarkdownEditor() {
   markdownDescription = new EasyMDE({
@@ -28,16 +29,6 @@ function loadMarkdownEditor() {
   });
   markdownDescription.value('');
 }
-
-const languageSwitchers = document.querySelectorAll('.language-switcher');
-languageSwitchers.forEach(switcher => {
-  switcher.addEventListener('click', async (event) => {
-    event.preventDefault();
-    const selectedLang = switcher.getAttribute('data-language');
-    await window.switchLanguage(selectedLang);
-    window.i18n.updatePage();
-  });
-});
 
 //desc: eventlistener auf den form button zum eintragen eines neuen commands
 document.getElementById('add-command-btn').addEventListener('click', async (event) => {

@@ -1,4 +1,4 @@
-import { showFeedback, loadGlobalTheme, checkAuth, initNavigation } from "./shared/shared.js";
+import { showFeedback, loadGlobalTheme, checkAuth, initNavigation, setupLanguageSwitcher } from "./shared/shared.js";
 
 
 if (window.i18n) {
@@ -23,7 +23,7 @@ let commandsArray = [];
 const commandsContainer = document.getElementById('commandsContainer');
 
 loadGlobalTheme();
-// technologyFilter();
+setupLanguageSwitcher();
 
 document.getElementById('technologyFilter').addEventListener('change', applyFilter);
 document.getElementById('searchInput').addEventListener('input', applyFilter);

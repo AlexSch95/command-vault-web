@@ -33,18 +33,3 @@ CREATE TABLE IF NOT EXISTS commands (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE CASCADE
 );
-
-CREATE TABLE IF NOT EXISTS deleted_commands (
-    cmd_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    category_id INT NOT NULL,
-    cmd_title TEXT NOT NULL,
-    cmd TEXT NOT NULL,
-    cmd_description TEXT,
-    cmd_source TEXT,
-    modified INTEGER DEFAULT 0,
-    last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    deleted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE CASCADE
-);

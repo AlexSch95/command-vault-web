@@ -1,4 +1,4 @@
-import { loadGlobalTheme, showFeedback, initNavigation, checkAuth } from "./shared/shared.js";
+import { loadGlobalTheme, showFeedback, initNavigation, checkAuth, setupLanguageSwitcher } from "./shared/shared.js";
 
 
 async function initPage() {
@@ -8,7 +8,8 @@ async function initPage() {
 
 initPage();
 
-await loadGlobalTheme();
+loadGlobalTheme();
+setupLanguageSwitcher();
 
 if (window.i18n) {
   await window.i18n.ready;
